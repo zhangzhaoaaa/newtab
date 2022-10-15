@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Link for new tab",
+  "description": "This extension helps links for opening a new tab",
+  "version": "1.0",
+  "icons": {
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.google.com/*", "https://github.com/*"],
+      "run_at": "document_start",
+      "js": ["clickable.js"],
+      "permissions": ["tabs"]
+    }
+  ]
+}
