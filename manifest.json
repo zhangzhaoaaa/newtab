@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Link for new tab",
   "description": "This extension helps links for opening a new tab",
-  "version": "1.0",
+  "version": "1.1",
   "icons": {
     "48": "icon.png",
     "128": "icon.png"

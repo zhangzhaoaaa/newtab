@@ -1,32 +1,39 @@
-var addAttribute = function (element) {
+const addAttribute = function (element) {
   if (element.getAttribute('target') === '_blank') {
     return;
   }
   element.setAttribute('target', '_blank');
 };
-
-var observer = new MutationObserver(function (mutations) {
+const findElements = () => {
+  const dashboardLinks = document.querySelectorAll('#dashboard a');
+  for (let i = 0; i < dashboardLinks.length; i++) {
+    addAttribute(dashboardLinks[i]);
+  }
+  const codeLinks = document.querySelectorAll('.codesearch-results a');
+  for (let i = 0; i < codeLinks.length; i++) {
+    addAttribute(codeLinks[i]);
+  }
+  const tagLinks = document.querySelectorAll('.topic-tag-link');
+  for (let i = 0; i < tagLinks.length; i++) {
+    addAttribute(tagLinks[i]);
+  }
+};
+const observer = new MutationObserver(function (mutations) {
   mutations.forEach(function (mutation) {
-    for (var i = 0; i < mutation.addedNodes.length; i++) {
-      var element = mutation.addedNodes[i];
+    for (let i = 0; i < mutation.addedNodes.length; i++) {
+      let element = mutation.addedNodes[i];
       if (!('querySelectorAll' in element)) {
         // some added elements do not have this method
         continue;
       }
 
-      var links = document.querySelectorAll('a');
-      for (var i = 0; i < links.length; i++) {
-        addAttribute(links[i]);
-      }
+      findElements();
     }
   });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  var links = document.querySelectorAll('a');
-  for (var i = 0; i < links.length; i++) {
-    addAttribute(links[i]);
-  }
+  findElements();
 
   observer.observe(document, { childList: true, subtree: true });
 });
